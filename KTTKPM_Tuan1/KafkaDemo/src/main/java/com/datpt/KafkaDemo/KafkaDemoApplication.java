@@ -3,9 +3,11 @@ package com.datpt.KafkaDemo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.kafka.annotation.EnableKafka;
 
 
 @SpringBootApplication
+@EnableKafka
 public class KafkaDemoApplication {
 
 	private final KafkaSender kafkaSender;
@@ -19,7 +21,7 @@ public class KafkaDemoApplication {
 		SpringApplication.run(KafkaDemoApplication.class, args);
 	}
 	public void sendExampleMessage() {
-        String topic = "<your-topic>";
+        String topic = "topic_0";
         String message = "Hello Kafka!";
         kafkaSender.sendMessage(topic, message);
     }
