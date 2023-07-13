@@ -21,7 +21,7 @@ import com.datpt.KTTKPM_Tuan4.entity.KhoaHoc;
 import com.datpt.KTTKPM_Tuan4.service.KhoaHocService;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("crud")
 public class KhoaHocController {
 
 	@Autowired
@@ -38,11 +38,22 @@ public class KhoaHocController {
 		return ResponseEntity.ok().body(khoahoc);
 	}
 
-//	@PutMapping
-//	public ResponseEntity<KhoaHoc> updateKhoaHoc(@PathVariable Long id, @RequestBody KhoaHoc khoahoc){
-//		Optional<KhoaHoc> khoaHocOptional = khoaHocService.findKhoaHocById(id);
-//		return khoaHocOptional
-//	}
+	@PutMapping("/khoahoc/{id}")
+	public ResponseEntity<String> updateKhoaHoc(@PathVariable Long id, @RequestBody KhoaHoc khoahoc){
+		Optional<KhoaHoc> khoaHocOptional = khoaHocService.findKhoaHocById(id);
+		if (khoaHocOptional.isPresent()) {
+			KhoaHoc kh = khoaHocOptional.get();
+			kh.setTenKhoaHoc(khoahoc.getTenKhoaHoc());
+			kh.setTenGV(khoahoc.getTenGV());
+			kh.setStatus(khoahoc.getStatus());
+			kh.setGiaGoc(khoahoc.getGiaGoc());
+			kh.setGiaHienTai(khoahoc.getGiaHienTai());
+			kh.setHinhAnh(khoahoc.getHinhAnh());
+			KhoaHoc updateKhoaHoc = khoaHocService.saveKhoaHoc(kh);
+			return ResponseEntity.ok().body("update khóa học thành công");
+		}
+		return null;
+	}
 	
 	@PostMapping("/khoahoc")
 	public KhoaHoc themKhoaHoc(@Valid @RequestBody KhoaHoc khoahoc) {

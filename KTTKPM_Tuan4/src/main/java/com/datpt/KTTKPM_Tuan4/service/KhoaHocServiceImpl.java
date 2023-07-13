@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.datpt.KTTKPM_Tuan4.entity.KhoaHoc;
@@ -12,7 +14,9 @@ import com.datpt.KTTKPM_Tuan4.repository.KhoaHocRepository;
 @Service
 public class KhoaHocServiceImpl implements KhoaHocService{
 
-	@Autowired private KhoaHocRepository khoaHocRepository;
+	@Autowired 
+	private KhoaHocRepository khoaHocRepository;
+
 	
 	@Override
 	public List<KhoaHoc> getAllKhoaHoc() {
@@ -35,5 +39,6 @@ public class KhoaHocServiceImpl implements KhoaHocService{
 	public Optional<KhoaHoc> findKhoaHocById(Long id) {
 		return khoaHocRepository.findById(id);
 	}
+	
 
 }
